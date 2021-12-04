@@ -21,9 +21,8 @@ class AuthController extends Controller
 
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
             $user   = auth()->user();
-            $token  = $request->user()->createToken('login-client');
+            $token  = $request->user()->createToken('login-user');
             return response()->json([
                 'data'  => $user,
                 'token' => $token
@@ -33,6 +32,7 @@ class AuthController extends Controller
         $data['status'] = 401;
         $data['message'] = 'Unauthorized';
 
+        
         return response()->json($data, 401);
     }
 
