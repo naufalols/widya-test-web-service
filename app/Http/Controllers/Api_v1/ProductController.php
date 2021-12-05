@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product = Product::paginate(5);
+        $data['status'] = 200;
+        $data['message'] = 'Success';
+        $data['data'] =  $product;
+
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -35,7 +42,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'product_name'      => 'required|max:25|unique:products,product_name',
+            'product_price'     => 'required|numeric|min:500|max:100000',
+            'product_qty'  => 'required|numeric|min:1|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            $data = array(
+                'status' => 422,
+                'error' => 1,
+                'message' =>  $validator->errors()
+            );
+            return response()->json($data, 422);
+        }
+
+        $product = Product::create($request->all());
+
+        $data = array(
+            'status' => 201,
+            'error'  => 0,
+            'message' => 'Product Created'
+        );
+
+        return response()->json($data, 201);
     }
 
     /**
@@ -67,9 +97,34 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request, $product)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'product_name'      => 'required|max:25|unique:products,product_name',
+            'product_price'     => 'required|numeric|min:500|max:100000',
+            'product_qty'  => 'required|numeric|min:1|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            $data = array(
+                'status' => 422,
+                'error' => 1,
+                'message' =>  $validator->errors()
+            );
+            return response()->json($data, 422);
+        }
+
+        $product = Product::find($product);
+        $product->update($request->all());
+
+
+        $data = array(
+            'status' => 202,
+            'error'  => 0,
+            'message' => 'Product Successfully Updated'
+        );
+
+        return response()->json($data, 202);
     }
 
     /**
@@ -78,8 +133,26 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($product)
     {
-        //
+        $product = Product::where('id', $product);
+        $result = $product->delete();
+        if ($result === 0) {
+            $data = array(
+            'status' => 422,
+            'error'  => 1,
+            'message' => 'Product can not be delete'
+        );
+
+            return response()->json($data, 422);
+        }
+
+        $data = array(
+            'status' => 202,
+            'error'  => 0,
+            'message' => 'Product Successfully deleted'
+        );
+
+        return response()->json($data, 202);
     }
 }
