@@ -290,7 +290,7 @@ hasil dari endpoint ini adalah
 }
 ```
 
-### 5. Hapus Product
+### 4. Hapus Product
 endpoint http://base_url/api/product/(id) masukkan id product yang akan dihapus
 
 Method : DELETE
