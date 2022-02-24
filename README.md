@@ -1,6 +1,6 @@
 # Web Service Product
 
-Electric Wallet adalah sebuah sistem web service, di mana user dapat melihat saldo saat ini dan mengirim saldo ke sesama pengguna Electric Wallet
+Web Service Product adalah sebuah sistem web service, di mana user dapat melihat saldo saat ini dan mengirim saldo ke sesama pengguna Electric Wallet
 
 ## Installation
 
