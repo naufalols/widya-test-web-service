@@ -372,7 +372,7 @@ hasil dari response ini adalah
 }
 ```
 ## Last but not Least
-Terima kasih untuk Privy.id telah memberi saya kesempatan untuk melakukan pretest, semoga pretest ini dapat menunjang keputusan yang baik untuk saya maupun pihak Privy.id
+Terima kasih untuk Widya telah memberi saya kesempatan untuk melakukan pretest, semoga pretest ini dapat menunjang keputusan yang baik untuk saya maupun pihak Privy.id
 
 ## License
 
