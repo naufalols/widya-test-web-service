@@ -12,6 +12,17 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -20,20 +31,26 @@ class AuthController extends Controller
         ]);
 
 
-        if (Auth::attempt($credentials)) {
-            $user   = auth()->user();
-            $token  = $request->user()->createToken('login-user');
-            return response()->json([
-                'data'  => $user,
-                'token' => $token
-            ], 200);
-        }
+        // if (Auth::attempt($credentials)) {
+        //     $user   = auth()->user();
+        //     $token  = $request->user()->createToken('login-user');
+        //     return response()->json([
+        //         'data'  => $user,
+        //         'token' => $token
+        //     ], 200);
+        // }
 
-        $data['status'] = 401;
-        $data['message'] = 'Unauthorized';
+        // $data['status'] = 401;
+        // $data['message'] = 'Unauthorized';
 
         
-        return response()->json($data, 401);
+        // return response()->json($data, 401);
+
+        if (!$token = Auth::attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 
     public function register(Request $request)
@@ -68,5 +85,31 @@ class AuthController extends Controller
         );
 
         return response()->json($data, 201);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return response()->json(['message' => 'User successfully logged out.']);
+    }
+
+    public function refresh()
+    {
+        return $this->respondWithToken(Auth::refresh());
+    }
+
+    public function profile()
+    {
+        return response()->json(Auth::user());
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => Auth::factory()->getTTL() * 60
+        ]);
     }
 }
