@@ -4,10 +4,10 @@ Web Service Product adalah sebuah sistem web service, di mana user dapat menamba
 
 ## Installation
 
-Clone git [Gitlab](https://github.com/naufalols/widya-test-web-service.git) untuk menginstall aplikasi.
+Clone git [Github](https://github.com/naufalols/widya-test-web-service.git) untuk menginstall aplikasi.
 
 ```bash
-git clone https://gitlab.com/naufalols/electricWallet.git
+https://github.com/naufalols/widya-test-web-service.git
 ```
 buat satu database msql pada server, lalu buat satu file .env atau rename .env.example dan koneksikan database yang telah dibuat.
 
