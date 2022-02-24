@@ -4,7 +4,7 @@ Electric Wallet adalah sebuah sistem web service, di mana user dapat melihat sal
 
 ## Installation
 
-Clone git [Gitlab](https://gitlab.com/naufalols/electricWallet) untuk menginstall aplikasi.
+Clone git [Gitlab](https://github.com/naufalols/widya-test-web-service.git) untuk menginstall aplikasi.
 
 ```bash
 git clone https://gitlab.com/naufalols/electricWallet.git
