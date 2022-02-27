@@ -26,6 +26,9 @@ php artisan db:seed
 # key generate
 php artisan key:generate
 
+# key jwt
+php artisan jwt:secret
+
 # run server
 php artisan serve
 ```
