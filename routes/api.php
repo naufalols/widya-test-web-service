@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api_v1\AuthController;
 use App\Http\Controllers\Api_v1\UserController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Api_v1\ProductController;
 use App\Http\Controllers\JWTController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
